@@ -87,7 +87,7 @@ public class ContentTypeAssignment extends AssignmentEndpoint {
 
   @PostMapping(path = "xxe/content-type-risky")
   @ResponseBody
-  public AttackResult createNewUser(
+  public AttackResult createNewUserRisky(
       HttpServletRequest request,
       @RequestBody String commentStr,
       @RequestHeader("Content-Type") String contentType) {
