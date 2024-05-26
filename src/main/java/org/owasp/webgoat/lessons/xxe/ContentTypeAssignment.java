@@ -85,6 +85,36 @@ public class ContentTypeAssignment extends AssignmentEndpoint {
     return attackResult;
   }
 
+  @PostMapping(path = "xxe/content-type-risky")
+  @ResponseBody
+  public AttackResult createNewUser(
+      HttpServletRequest request,
+      @RequestBody String commentStr,
+      @RequestHeader("Content-Type") String contentType) {
+    AttackResult attackResult = failed(this).build();
+
+    if (APPLICATION_JSON_VALUE.equals(contentType)) {
+      comments.parseJson(commentStr).ifPresent(c -> comments.addComment(c, true));
+      attackResult = failed(this).feedback("xxe.content.type.feedback.json").build();
+    }
+
+    if (null != contentType && contentType.contains(MediaType.APPLICATION_XML_VALUE)) {
+      String error = "";
+      try {
+        Comment comment = comments.parseXml(commentStr);
+        comments.addComment(comment, false);
+        if (checkSolution(comment)) {
+          attackResult = success(this).build();
+        }
+      } catch (Exception e) {
+        error = ExceptionUtils.getStackTrace(e);
+        attackResult = failed(this).feedback("xxe.content.type.feedback.xml").output(error).build();
+      }
+    }
+
+    return attackResult;
+  }
+
   private boolean checkSolution(Comment comment) {
     String[] directoriesToCheck =
         OS.isFamilyMac() || OS.isFamilyUnix()
