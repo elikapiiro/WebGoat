@@ -59,6 +59,14 @@ public class SqlInjectionLesson6a extends AssignmentEndpoint {
     // user_system_data --
   }
 
+  @PostMapping("/SqlInjectionAdvanced/attack6bbbbRisky")
+  @ResponseBody
+  public AttackResult completed(@RequestParam(value = "userid_6a") String userId) {
+    return injectableQuery(userId);
+    // The answer: Smith' union select userid,user_name, password,cookie,cookie, cookie,userid from
+    // user_system_data --
+  }
+
   public AttackResult injectableQuery(String accountName) {
     String query = "";
     try (Connection connection = dataSource.getConnection()) {
