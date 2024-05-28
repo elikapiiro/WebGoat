@@ -110,7 +110,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
     return failed(this).feedback("vulnerable-components.fromXML").feedbackArgs(contact).build();
   }
     
-  @PostMapping("/VulnerableComponents/attack2Risky")
+  @PostMapping("/VulnerableComponents/attack2RiskyChangedName")
   public @ResponseBody AttackResult completedRisky(@RequestParam String payload) {
     XStream xstream = new XStream();
     xstream.setClassLoader(Contact.class.getClassLoader());
