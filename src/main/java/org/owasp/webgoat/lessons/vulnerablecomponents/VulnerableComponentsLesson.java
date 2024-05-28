@@ -74,7 +74,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
   }
     
   @PostMapping("/VulnerableComponents/attack2")
-  public @ResponseBody AttackResult completed(@RequestParam String payload) {
+  public @ResponseBody AttackResult completedCheckRisky(@RequestParam String payload) {
     XStream xstream = new XStream();
     xstream.setClassLoader(Contact.class.getClassLoader());
     xstream.alias("contact", ContactImpl.class);
@@ -111,7 +111,7 @@ public class VulnerableComponentsLesson extends AssignmentEndpoint {
   }
     
   @PostMapping("/VulnerableComponents/attack2Risky")
-  public @ResponseBody AttackResult completed(@RequestParam String payload) {
+  public @ResponseBody AttackResult completedRisky(@RequestParam String payload) {
     XStream xstream = new XStream();
     xstream.setClassLoader(Contact.class.getClassLoader());
     xstream.alias("contact", ContactImpl.class);
